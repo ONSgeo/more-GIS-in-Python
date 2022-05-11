@@ -16,9 +16,7 @@ from requests.auth import HTTPProxyAuth
 import urllib
 
 
-POSTCODE_FIELDS = ['geometry', 'objectid', 'pcd', 'pcd2', 'pcds', 'dointr',
-                   'doterm', 'oscty', 'ced', 'oslaua', 'osward', 'usertype',
-                   'oseast1m', 'osnrth1m', 'osgrdind', 'oshlthau', 'nhser', 'ctry', 'rgn', 'pcon', 'eer', 'ttwa', 'itl', 'park', 'oa11', 'lsoa11', 'msoa11', 'parish', 'wz11', 'ccg', 'bua11', 'buasd11', 'ru11ind', 'oac11', 'lat', 'long', 'lep1', 'lep2',   'pfa', 'imd', 'calncv', 'stp', 'pcdn']
+
 
 
 
@@ -44,6 +42,10 @@ def request_postcodes_from_list(pcds_list, outfile=None, fields='all'):
        'pfa', 'imd', 'calncv', 'stp', 'pcdn']. NOTE THAT NOT INCLUDING
        GEOMETRY RESULT IN REGULAR DATAFRAME BEING CREATED WITOUT GEOMETRY.
     """
+    POSTCODE_FIELDS = ['geometry', 'objectid', 'pcd', 'pcd2', 'pcds', 'dointr',
+                   'doterm', 'oscty', 'ced', 'oslaua', 'osward', 'usertype',
+                   'oseast1m', 'osnrth1m', 'osgrdind', 'oshlthau', 'nhser', 'ctry', 'rgn', 'pcon', 'eer', 'ttwa', 'itl', 'park', 'oa11', 'lsoa11', 'msoa11', 'parish', 'wz11', 'ccg', 'bua11', 'buasd11', 'ru11ind', 'oac11', 'lat', 'long', 'lep1', 'lep2',   'pfa', 'imd', 'calncv', 'stp', 'pcdn']
+    
     os.environ['http_proxy'] = "http://10.173.135.52:8080"
     os.environ['https_proxy'] = "http://10.173.135.52:8080"
 
@@ -90,12 +92,11 @@ def request_postcodes_from_list(pcds_list, outfile=None, fields='all'):
 
 if __name__ == "__main__":
     BASE = Path(__file__).resolve().parent.parent
-    CSV = BASE.joinpath(
-        "data/csv/london_fire_brigade_stations.csv")
+    CSV = BASE.joinpath("data/csv/london_fire_brigade_stations.csv")
     outfile = CSV.parent.joinpath("stations_locations.shp")
     stations = pd.read_csv(CSV)
     stations['postcode'] = stations['Address'].str.rsplit(', ').str[-1]
     pcds = stations.postcode
-    gdf = request_postcodes_from_list(pcds, outfile=outfile, fields=[
-        "geometry", "pcds", "parish"])
+    gdf = request_postcodes_from_list(pcds, outfile=outfile, fields=["geometry", "pcds"]).to_crs(27700)
+    print(gdf)
 
