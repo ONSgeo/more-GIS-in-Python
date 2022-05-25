@@ -77,7 +77,7 @@ def request_postcodes_from_list(pcds_list, outfile=None, fields='all'):
     url = URL + urllib.parse.urlencode(params)
     r = session.get(url=url, headers=headers)
     data = r.json()
-    gdf = gpd.GeoDataFrame.from_features(data, crs=4236)
+    gdf = gpd.GeoDataFrame.from_features(data, crs=27700)
     if outfile:
         try:
             gdf.to_file(outfile, index=False)
