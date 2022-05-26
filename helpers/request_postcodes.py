@@ -72,6 +72,7 @@ def request_postcodes_from_list(pcds_list, outfile=None, fields='all'):
     params = {
     'where': f"pcds in {pcds}",
     'outFields': out_fields,
+    'outSR': 27700,
     'f': 'geojson'
     }
     url = URL + urllib.parse.urlencode(params)
@@ -93,10 +94,11 @@ def request_postcodes_from_list(pcds_list, outfile=None, fields='all'):
 if __name__ == "__main__":
     BASE = Path(__file__).resolve().parent.parent
     CSV = BASE.joinpath("data/csv/london_fire_brigade_stations.csv")
-    outfile = CSV.parent.joinpath("stations_locations.shp")
+    #outfile = CSV.parent.joinpath("stations_locations.shp")
+    outfile = "stations_locations.shp"
     stations = pd.read_csv(CSV)
     stations['postcode'] = stations['Address'].str.rsplit(', ').str[-1]
     pcds = stations.postcode
-    gdf = request_postcodes_from_list(pcds, outfile=outfile, fields=["geometry", "pcds"]).to_crs(27700)
+    gdf = request_postcodes_from_list(pcds, outfile=outfile, fields=["geometry", "pcds"])
     print(gdf)
 
