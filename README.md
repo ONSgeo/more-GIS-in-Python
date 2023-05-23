@@ -33,13 +33,13 @@ To take this course:
 
 ### Packages
 **Note**: The following packages are required to complete the course
-Pandas
-Numpy
-Geopandas
-Pyjanitor
-Matplotlib
-Fiona
-Matplotlib_scalebar
+* Pandas
+* Numpy
+* Geopandas
+* Pyjanitor
+* Matplotlib
+* Fiona
+* Matplotlib_scalebar
 
 If you do not already have Pyjanitor and Matplotlib_scalebar, they can be downloaded from their documentation websites:
 
