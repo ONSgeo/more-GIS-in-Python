@@ -48,5 +48,5 @@ If you do not already have Pyjanitor and Matplotlib_scalebar, they can be downlo
 
 If working on an ONS machine, Upon opening the Package sites:
 * Click on **pyjanitor-0.21.2-py3-none-any.whl** to download the .whl file into your machine
-* Install the package as demonstrated in [step 6 in the installation guide](https://onsgeo.github.io/geospatial-training/docs/guides/python_install) 
+* Install the package as demonstrated in [step 6 in the installation guide](https://onsgeo.github.io/geospatial-training/docs/guides/python_install_anaconda) 
  
